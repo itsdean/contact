@@ -11,9 +11,9 @@ out of the box:
 ./contact.py --target <user/org>
 ```
 
-if you need to auth:
+if you need to auth, provide your username and the name of an environment variable storing your GitHub Personal Access Token:
 ```
-./contact.py --target <user/org> --username <your GitHub login> --token <your GitHub Personal Access Token>
+./contact.py --target <user/org> --username <your GitHub login> --token <environment variable name>
 ```
 
 you can also use `--url` if you're connecting to a non GitHub.com server:
