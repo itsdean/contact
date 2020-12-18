@@ -1,6 +1,6 @@
 # contact
 
-abstract: git commits are relatively simple way of obtaining emails for OSINT purposes.
+abstract: git commits are a relatively simple way of obtaining emails for OSINT purposes.
 
 this leverages GitHub APIs to go through a target user or organisation's repositories, extracting email addresses and names from every commit.
 
