@@ -1,21 +1,15 @@
 import os
-import requests
-
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from itertools import repeat
+
+import requests
 
 from .loot import Loot
 from .repository import Repository
 from .request import Request
 
-# For development purposes
-from dotenv import load_dotenv
-load_dotenv()
-
 
 class Target:
-
-
     def check(self, target):
 
         response = self.r.send_request(self.target_endpoint)
@@ -30,7 +24,9 @@ class Target:
             if response.json()["message"] == "Not Found":
                 print("target not found")
             else:
-                print(f"did not receive a 200 for {self.url}, received {response.status_code} instead")
+                print(
+                    f"did not receive a 200 for {self.url}, received {response.status_code} instead"
+                )
                 print(response.json())
             exit()
 
@@ -40,31 +36,33 @@ class Target:
         else:
             return "org"
 
-
     def __append_repository(self, request, loot, repo):
         self.repositories.append(Repository(request, loot, repo))
-
 
     def parse_repositories(self):
         self.repositories = []
 
         response = self.r.send_request(f"{self.target_endpoint}/repos")
 
-        with ThreadPoolExecutor(max_workers = 5) as executor:
-            executor.map(self.__append_repository, repeat(self.r), repeat(self.l), response.json())
-
+        with ThreadPoolExecutor(max_workers=5) as executor:
+            executor.map(
+                self.__append_repository,
+                repeat(self.r),
+                repeat(self.l),
+                response.json(),
+            )
 
     def report(self):
-        print(f"\nfound {self.l.count()} email(s) within {len(self.repositories)} repo(s)")
+        print(
+            f"\nfound {self.l.count()} email(s) within {len(self.repositories)} repo(s)"
+        )
         for key in self.l.bag.keys():
             print(f"email: {key}")
             for name in self.l.bag[key]["names"]:
                 print(f"> name: {name} [{', '.join(self.l.bag[key]['names'][name])}]")
 
-
     def go(self):
         self.parse_repositories()
-
 
     def __init__(self, values):
         self.r = Request()

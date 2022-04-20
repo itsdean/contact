@@ -1,6 +1,4 @@
 class Repository:
-
-
     def parse_commits(self):
         response = self.r.send_request(self.commits_url)
         commits = response.json()
@@ -17,7 +15,6 @@ class Repository:
             c_name = committer["name"]
             c_email = committer["email"]
             self.l.add(self.name, c_name, c_email)
-
 
     def __init__(self, request, loot, repository):
 
