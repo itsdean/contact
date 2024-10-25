@@ -2,7 +2,7 @@ black==24.3.0
 certifi==2024.7.4
 charset-normalizer==2.0.12
 click==8.1.2
-idna==3.3
+idna==3.7
 importlib-metadata==4.11.3
 isort==5.10.1
 mypy-extensions==0.4.3
